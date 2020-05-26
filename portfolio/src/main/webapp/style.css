@@ -1,9 +1,64 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+
+/*Setting global style */
+body {
+    background-color:#6CDAFE;
+    font-family: 'Montserrat';
 }
 
-#greeting-container {
-  margin-top: 20px;
+.grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+/* Header */
+header {
+    width: 100%;
+    padding-left: 5%;
+    padding-bottom: 10px;
+    padding-right: 60px;
+    color: #F2F2F2;
+    font-size: 20px;
+    grid-column:1/4;
+}
+
+section {
+    width:100%;
+}
+
+footer {
+    width:100%;
+}
+
+#name {
+    text-align: left;
+    font-size: 25px;
+    width:50%;
+    grid-column: 1/2;
+}
+
+.topnav {
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    grid-column:3/4;
+}
+
+.wrapper {
+    grid-column: 1/4;
+}
+
+.wrapper h1{
+    text-align:center;
+    grid-column:1;
+}
+
+.wrapper ul{
+    grid-column:3/4;
+}
+
+
+#profilepic{
+    grid-column:1/3
+}
+
+
