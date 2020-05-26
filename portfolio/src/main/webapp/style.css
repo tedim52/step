@@ -1,48 +1,64 @@
 
-/*Setting background color */
+/*Setting global style */
 body {
-  background-color: #6CDAFE;
-  font-family: 'Montserrat';
+    background-color:#6CDAFE;
+    font-family: 'Montserrat';
 }
 
+.grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
 /* Header */
-.header{
-  text-align: left;
-  width: 100%;
-  padding-left: 5%;
-  padding-bottom: 10px;
-  padding-right: 60px;
-  background: #6CDAFE;
-  color: #F2F2F2;
-  font-size: 20px;
-}
-
-/* Navigation Bar */
-.sidebar{
-    height: 100%; 
-    width: 160px; 
-    position: fixed; 
-    z-index: 1;
-    top: 70px; 
-    left: 0;
-    overflow-x: hidden; 
-    padding-top: 20px;
+header {
+    width: 100%;
     padding-left: 5%;
-}
-
-.sidebar a{
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 25px;
+    padding-bottom: 10px;
+    padding-right: 60px;
     color: #F2F2F2;
-    display: block;
+    font-size: 20px;
+    grid-column:1/4;
 }
 
-.sidebar a:hover{
-    color: aliceblue;
+section {
+    width:100%;
 }
 
-.content {
-    margin-left: 200px; 
-    padding: 0px 10px;
+footer {
+    width:100%;
 }
+
+#name {
+    text-align: left;
+    font-size: 25px;
+    width:50%;
+    grid-column: 1/2;
+}
+
+.topnav {
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    grid-column:3/4;
+}
+
+.wrapper {
+    grid-column: 1/4;
+}
+
+.wrapper h1{
+    text-align:center;
+    grid-column:1;
+}
+
+.wrapper ul{
+    grid-column:3/4;
+}
+
+
+#profilepic{
+    grid-column:1/3
+}
+
+

@@ -2,26 +2,37 @@
 <html>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,700&display=swap" 
         rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tedi mitiku</title>
-    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="header">
-        <h1>tedi mitiku</h1>
-    </div>
-
-    <div class="sidebar">
-        <a href="#me">me</a>
-        <a href="#mythoughts">my thoughts</a>
-    </div>     
-
-    <div class="content">  
-        <img id="profilepic" src="images/profilepic.jpeg">
-    </div>
+    <!--Header and Nav Bar-->
+    <header id="header" class="grid">
+        <h1 id="name">tedi mitiku</h1>
+        <div class="topnav">
+            <a href="#me">me</a>
+            <a href="#mythoughts">my thoughts</a>
+        </div>
+    </header>
+    <!--Content-->
+    <main id="main">
+        <section id="aboutme" class="grid">
+            <div class="wrapper">
+                <h1>me</h1>
+                <img id="profilepic" src="images/profilepic.jpeg">
+                <ul>
+                    <li>college student@cornell</li>
+                    <li>music lover</li>
+                    <li>coffee drinker</li>       
+            </div>
+        </section>
+    </main>
+    <!--Contact Me-->
+    <footer id="footer" class="grid">
+    </footer>
   </body>
-
 <script src="script.js"></script>
 </html>
