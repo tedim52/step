@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,700&display=swap" 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,700&display=swap"
         rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <head>
@@ -9,30 +9,50 @@
     <title>tedi mitiku</title>
   </head>
   <body>
-    <!--Header and Nav Bar-->
-    <header id="header" class="grid">
-        <h1 id="name">tedi mitiku</h1>
-        <div class="topnav">
-            <a href="#me">me</a>
-            <a href="#mythoughts">my thoughts</a>
+    <div class="container">
+      <!--Nav Bar-->
+      <nav class="nav-bar" >
+          <h1 class="large-name">tedi mitiku</h1>
+          <ul class="right-menu">
+              <li><a href="#me">me</a></li>
+              <li><a href="#mythoughts">my thoughts</a></li>
+          </ul>
+      </nav>
+
+      <!--Header-->
+      <header class="about-me">
+        <img src="images/profilepic.jpeg" alt="tedi" class="profile-pic">
+         <div class="basic-info">
+           <ul>
+             <li>computer science <a href="https://www.cornell.edu/">@cornell</a></li>
+             <li>coffee drinker</li>
+             <li>music lover</li>
+           </ul>
+         </div>
+      </header>
+      <!--What I do Section-->
+      <section class="whatido">
+        <h1>what i do</h1>
+        <div class="cardone">
+
         </div>
-    </header>
-    <!--Content-->
-    <main id="main">
-        <section id="aboutme" class="grid">
-            <div class="wrapper">
-                <h1>me</h1>
-                <img id="profilepic" src="images/profilepic.jpeg">
-                <ul>
-                    <li>college student@cornell</li>
-                    <li>music lover</li>
-                    <li>coffee drinker</li>       
-            </div>
-        </section>
-    </main>
-    <!--Contact Me-->
-    <footer id="footer" class="grid">
-    </footer>
+        <div class="cardtwo">
+
+        </div>
+        <div class="cardthree">
+
+        </div>
+        <div class="cardfour">
+
+        </div>
+
+      </section>
+      <!--What I do love-->
+
+      <!--Contact Me-->
+      <footer id="footer" class="grid">
+      </footer>
+    </div>
   </body>
 <script src="script.js"></script>
 </html>
