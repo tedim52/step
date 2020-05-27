@@ -15,13 +15,17 @@ body {
 }
 
 a {
-  color: #F2F2F2;
+  color: #f2f2f2;
   text-decoration: none;
 }
 
 ul {
   list-style:none;
   color: #f2f2f2
+}
+
+h1, h2 {
+  color: #f2f2f2;
 }
 
 /* Size of elements */
@@ -92,45 +96,57 @@ ul {
 
 }
 
-/* What I do styles */
-.whatido .cards {
+/* What I styles */
+.cards {
   display: grid;
   grid-template-columns: repeat(3,1fr);
   grid-gap: 20px;
   padding:20px 10px;
 }
 
-.whatido .cards {
+.cards {
   margin: 20px 50px;
 }
 
-.whatido .cards div {
-
+.cards div {
   margin: 20px 50px;
 }
 
-
-
-.whatido .cards img{
+.cards img{
   height: 200px;
   width: 200px;
   margin-bottom: 20px;
 }
 
-.whatido .cards .card-text {/*add Java Script for this later */
+.cards .card-text {/*add Java Script for this later */
   display: none;
 }
 
-.whatido .cards img:hover {
+.cards img:hover {
   opacity: .25;
   transition: .5s ease;
   background-color: #1F2833;
 }
 
-.whatido .cards .card-text {
+.cards .card-text {
   display: none;
 }
 
-.whatido h1 {
-  color: #f2f2f2;
+
+/* Connect with me */
+.connect {
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  height: 100px;
+  padding: 50px 20px;
+  margin-bottom: 100px;
+}
+
+.connect h2 {
+  padding: 20px;
+}
+.connect .socials {
+  display:flex;
+  justify-content: space-between;
 }
