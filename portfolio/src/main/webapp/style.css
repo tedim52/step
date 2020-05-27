@@ -81,17 +81,54 @@ ul {
 .about-me ul li {
   margin: 10px;
   padding: 10px;
+  font-size: 20px;
 }
 
 .about-me .profile-pic {
   border-radius: 50%;
   width: 250px;
-  margin-left: 200px;
+  margin-left: 100px;
+  margin-right: 150px;
+
 }
 
 /* What I do styles */
-.whatido {
+.whatido .cards {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap: 20px;
+  padding:20px 10px;
+}
 
+.whatido .cards {
+  margin: 20px 50px;
+}
+
+.whatido .cards div {
+
+  margin: 20px 50px;
+}
+
+
+
+.whatido .cards img{
+  height: 200px;
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.whatido .cards .card-text {/*add Java Script for this later */
+  display: none;
+}
+
+.whatido .cards img:hover {
+  opacity: .25;
+  transition: .5s ease;
+  background-color: #1F2833;
+}
+
+.whatido .cards .card-text {
+  display: none;
 }
 
 .whatido h1 {
