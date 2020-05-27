@@ -1,64 +1,99 @@
 
 /*Setting global style */
+* {
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
+
+/* Core Styles */
 body {
-    background-color:#6CDAFE;
+    background-color:#0B0C10;
     font-family: 'Montserrat';
+    font-size: 15px;
+    line-height: 1.5;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-/* Header */
-header {
-    width: 100%;
-    padding-left: 5%;
-    padding-bottom: 10px;
-    padding-right: 60px;
-    color: #F2F2F2;
-    font-size: 20px;
-    grid-column:1/4;
+a {
+  color: #F2F2F2;
+  text-decoration: none;
 }
 
-section {
-    width:100%;
+ul {
+  list-style:none;
+  color: #f2f2f2
 }
 
-footer {
-    width:100%;
+/* Size of elements */
+.container {
+  width: 80%;
+  max-width:1100px;
+  margin: auto;
+  background-color: #0B0C10;
 }
 
-#name {
-    text-align: left;
-    font-size: 25px;
-    width:50%;
-    grid-column: 1/2;
+/* Nav Bar Styles */
+.nav-bar {
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  height:80px;
+  padding: 20px 10px;
 }
 
-.topnav {
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-    grid-column:3/4;
+.nav-bar .large-name {
+  color: #f2f2f2;
+  font-size: 30px;
 }
 
-.wrapper {
-    grid-column: 1/4;
+.nav-bar ul {
+  display:flex;
 }
 
-.wrapper h1{
-    text-align:center;
-    grid-column:1;
+.nav-bar ul.right-menu{
+  flex:1;
+  justify-content: flex-end;
 }
 
-.wrapper ul{
-    grid-column:3/4;
+.nav-bar ul li{
+  padding: 0px 20px;
 }
 
-
-#profilepic{
-    grid-column:1/3
+.nav-bar ul li a:hover{
+  border-bottom: 2px solid #45A29E;
+  color: #45A29E;
 }
 
+/* Header styles */
+.about-me {
+  display: flex;
+  height: 300px;
+  padding: 20px;
+  margin-top:10px;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.about-me ul {
+  margin-right: 150px;
+}
+
+.about-me ul li {
+  margin: 10px;
+  padding: 10px;
+}
+
+.about-me .profile-pic {
+  border-radius: 50%;
+  width: 250px;
+  margin-left: 200px;
+}
+
+/* What I do styles */
+.whatido {
+
+}
+
+.whatido h1 {
+  color: #f2f2f2;
+}
