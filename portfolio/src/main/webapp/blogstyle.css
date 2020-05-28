@@ -68,73 +68,39 @@ h1, h2, p{
   color: #45A29E;
 }
 
-/* Header styles */
-.about-me {
+/*Blog style */
+.blog {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
   height: 300px;
   padding: 20px;
+  padding-top: 200px;
   margin-top:10px;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.about-me ul {
-  margin-right: 150px;
+.blog .picture {
+  margin: auto;
 }
 
-.about-me ul li {
-  margin: 10px;
-  padding: 10px;
-  font-size: 22px;
+.blog .content {
+  grid-column:2/span 2;
 }
 
-.about-me .profile-pic {
-  border-radius: 50%;
-  width: 200px;
-  margin-left: 150px;
-  margin-right: 150px;
-  margin-top: 30px;
-
+.blog .content h1{
+  margin-bottom: 30px;
 }
 
-/* What I styles */
-.whati {
-  margin-top: 30px;
-  margin-left: 30px;
-}
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  grid-gap: 20px;
-  padding:20px 10px;
-  height: 200px;
-  width:200px;
+.blog .content h1:hover{
+  margin-bottom: 30px;
+  color: #45A29E;
 }
 
-.cards {
-  margin: 20px 50px;
+.blog img {
+  height: 255px;
+  width: 255px;
 }
 
-.cards div {
-  margin: 20px 50px;
-}
-
-.cards img{
-  height: 200px;
-  width: 200px;
-  margin-bottom: 20px;
-}
-
-.cards .card-text {/*add Java Script for this later */
-  display: none;
-}
-
-.cards img:hover {
-  opacity: .25;
-  transition: .5s ease;
-  background-color: #1F2833;
-}
 
 /* Connect with me */
 .connect {
@@ -142,8 +108,8 @@ h1, h2, p{
   flex-direction:column;
   align-items: center;
   height: 100px;
-  padding: 50px 20px;
-  margin-bottom: 100px;
+  padding: 300px 20px;
+
 }
 
 .connect .socials {
@@ -153,16 +119,11 @@ h1, h2, p{
 
 /* Adjust for small screen sizes */
 @media (max-width: 700px) {
-  .about-me {
+  .blog {
     grid-template-columns: 1fr;
-    margin-bottom: 200px;
   }
 
-  .about-me ul{
-    align-items: center;
-  }
-
-  .cards {
-    grid-template-columns: 1fr;
+  .blog .content {
+    grid-column: 1/span 1;
   }
 }
