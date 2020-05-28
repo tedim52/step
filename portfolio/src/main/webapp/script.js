@@ -16,7 +16,7 @@
 
 
 // Adds animation to cards on me page.
-// Cards rise and show background text.    
+// Cards rise and show background text.
 const cards = document.querySelectorAll('#card');
 for(var i = 0; i < cards.length; i++){
   cards[i].addEventListener('mouseenter', showText(cards[i]));
