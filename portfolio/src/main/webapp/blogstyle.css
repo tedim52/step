@@ -64,6 +64,10 @@ h1, h2, p{
   padding: 0px 20px;
 }
 
+.nav-bar ul li a {
+  font-weight: bold;
+}
+
 .nav-bar ul li a:hover{
   color: #45A29E;
 }

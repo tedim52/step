@@ -64,6 +64,11 @@ h1, h2, p{
   padding: 0px 20px;
 }
 
+.nav-bar ul li a {
+  font-weight: bold;
+}
+
+
 .nav-bar ul li a:hover{
   color: #45A29E;
 }
@@ -92,18 +97,23 @@ h1, h2, p{
 .suggestion img {
   height: 255px;
   width: 255px;
-
 }
 
-/*Hover effect */
-.card-text {
-  display: none;
-}
-
-.cards img:hover {
+/* Card animation style*/
+.suggestion img:hover {
   opacity: .25;
   transition: .5s ease;
   background-color: #1F2833;
   transform: translateY(-20px) scale(1.1,1.1);
   transition: transform .5s ease;
 }
+
+.card-text {
+  display: none;
+}
+
+/*
+.card-text {
+  display: block;
+  transform: translate(-250px, 150px);
+}/*
