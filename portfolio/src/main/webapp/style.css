@@ -62,6 +62,11 @@ h1, h2, p{
 
 .nav-bar ul li{
   padding: 0px 20px;
+  font-weight: bold;
+}
+
+.nav-bar ul li a {
+  font-weight: bold;
 }
 
 .nav-bar ul li a:hover{

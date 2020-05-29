@@ -1,40 +1,39 @@
-// Plays random song from array of random song
-// Going to attempt to use spotify web api to get songs form my playlists
+/*Plays random song from array of random song
+  Going to attempt to use spotify web api to get songs form my playlists */
 
 
+
+//Retrieves the song icon and adds random song functionality on click
 const headphone = document.querySelector('.suggest')
+headphone.addEventListener('click', randomSong())
 
-headphone.addEventListener('click', randomSong(headphone))
 
 function randomSong() {
-  var songs = ["Pursuit of Happniess", "Redstripe Rhapsody", "Be a Googler"];
-  var covers = ["post.jpeg", "astro.jpg", "funk.jpg"];
-  var song = songs[Math.random()*3];
-  var art =covers[Math.random()*3];
+  var songs = ["Pursuit of Happiness", "Redstripe Rhapsody", "Be a Googler"];
+  var covers = ["post.jpg", "astro.jpg", "funk.jpg"];
 
-  document.querySelector(".card").setAttribute("src", "/images/"+art);
-  document.querySelector(".card-text").innerHTML = song;
+  random = Math.floor(Math.random() * Math.floor(3));//pulled from MDN Math.random() page
+  var song = songs[random];
+  var art = covers[random];
+
+  card = document.querySelector(".cards");
+  card.setAttribute("src", "/images/"+art);
+  card.addEventListener('mouseenter', showText(song));
+  card.addEventListener('mouseleave', hideText());
 }
 
-//Add hover effect to card
-const cards = document.querySelectorAll(".card");
-for(var i = 0; i < cards.length; i++){
-  cards[i].addEventListener('mouseenter', showText(cards[i]));
-  cards[i].addEventListener('mouseleave', hideText(cards[i]));
-}
-
-function showText(elem) {
+function showText(song) {
   return function(){
-    text = elem.querySelector('.card-text');
+    text = document.querySelector('.card-text');
+    text.innerHTML = song;
     text.style.display = "block";
-    text.style.transform = "translateY(-100px)";
-    text.style.transition = "transform .25s ease";
+    text.style.transform = "translate(-250px,150px)";
   }
 }
 
-function hideText(elem) {
+function hideText() {
   return function(){
-    text = elem.querySelector('.card-text');
+    text = document.querySelector('.card-text');
     text.style.display = "none";
   }
 }
