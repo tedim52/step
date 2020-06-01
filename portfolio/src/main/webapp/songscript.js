@@ -2,14 +2,32 @@
   Going to attempt to use spotify web api to get songs form my playlists */
 
 
+//Retrieving access token
+
+/*
+var retriever = new XMLHttpRequest();
+retriever.open('POST', 'https://accounts.spotify.com/api/token')
+var authToken;
+retriever.onreadystatechange = function() {
+  if (retriever.readyState == 4 && retriever.status == 200) {//Request was successful
+    authToken = retriever.response;
+    console.log(authToken);
+  }
+};
+retriever.setRequestHeader('Authorization', 'Basic MjBiMDRjNDE4Mjc5NGQ1NmEzMTgxZTI5ZDZlNThhZTM6ZWJmNzRjMmYyN2YzNGQxMWJhMmFhMzhiMDU0ZDg0MjU=');
+retriever.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+retriever.send("grant_type=client_credentials");
+
+*/
+//Instantiating Spotify Wrapper JM-Perez
 
 //Retrieves the song icon and adds random song functionality on click
-const headphone = document.querySelector('.suggest')
-headphone.addEventListener('click', randomSong())
+const headphone = document.querySelector('.suggest');
+headphone.addEventListener('click', randomSong());
 
 
 function randomSong() {
-  var songs = ["Pursuit of Happiness", "Redstripe Rhapsody", "Be a Googler"];
+  var songs = ["Too Young", "Stargazing", "Cash Out"];
   var covers = ["post.jpg", "astro.jpg", "funk.jpg"];
 
   random = Math.floor(Math.random() * Math.floor(3));//pulled from MDN Math.random() page
@@ -17,7 +35,7 @@ function randomSong() {
   var art = covers[random];
 
   card = document.querySelector(".cards");
-  card.setAttribute("src", "/images/"+art);
+  card.setAttribute("src", "/images/"+ art);
   card.addEventListener('mouseenter', showText(song));
   card.addEventListener('mouseleave', hideText());
 }
