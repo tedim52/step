@@ -64,14 +64,9 @@ h1, h2, p{
   padding: 0px 20px;
 }
 
-.nav-bar ul li a {
-  font-weight: bold;
-}
-
 .nav-bar ul li a:hover{
   color: #45A29E;
 }
-
 /*Blog style */
 .blog {
   display: grid;
@@ -124,7 +119,10 @@ h1, h2, p{
 /* Adjust for small screen sizes */
 @media (max-width: 700px) {
   .blog {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+
   }
 
   .blog .content {
