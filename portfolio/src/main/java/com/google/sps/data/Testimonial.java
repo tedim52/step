@@ -6,14 +6,14 @@ package com.google.sps.data;
 public final class Testimonial {
 
   private final String name;
-  private final String relationsip;
+  private final String relationship;
   private final String text;
   private int upVote;
   private int downVote;
 
   public Testimonial(String n, String r, String t) {
       this.name = n;
-      this.relationsip = r;
+      this.relationship = r;
       this.text = t;
       upVote = 0;
       downVote = 0;
@@ -24,7 +24,7 @@ public final class Testimonial {
   }
 
   public String getRelationship() {
-    return relationsip;
+    return relationship;
   }
 
   public String getText() {

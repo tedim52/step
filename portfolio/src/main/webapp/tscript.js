@@ -19,16 +19,18 @@ form.addEventListener('submit', async(e) => {
     
     var data = await response.json();
     console.log(data);
-
-    //display testimonial onto screen
+    showTestimonial(data);
 });
 
 //function to display testimonial
 function showTestimonial(json) {
     var section = document.createElement("section");
-    section.
-    var div = section.appendChild("div");
-    var p = div.appendChild("")    
+    var div = document.createElement("div",{class:".testimonials"})
+    section.appendChild(div);
+    var text = document.createElement("p");
+    text.innerHTML = "name: " +json.name + " who: "+json.relationship+ " what they have to say: "+json.text;
+    div.appendChild(text);
+    document.querySelector(".container").appendChild(section);
 }
 
 //function to validate form

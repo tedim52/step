@@ -68,11 +68,16 @@ h1, h2, p{
   color: #45A29E;
 }
 
-.testimonials {
+.form {
   display: inline-block;
   margin: 100px 100px;
 }
 
-.testimonials label {
+.form label {
   color: #f2f2f2;
+}
+
+.testimonials {
+    display: flex;
+    padding: 25px 25;
 }
