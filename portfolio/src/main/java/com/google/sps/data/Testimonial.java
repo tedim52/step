@@ -1,7 +1,5 @@
 package com.google.sps.data;
 
-
-
 /** Class containing testimonial information. */
 public final class Testimonial {
 

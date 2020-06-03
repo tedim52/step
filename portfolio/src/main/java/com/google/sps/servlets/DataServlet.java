@@ -53,9 +53,10 @@ public class DataServlet extends HttpServlet {
         i++;
     }
     
-    //for(String s:formContent) {
-    //   System.out.println(s);
-    //}
+    //Print form - verify backend received it - remove before deployment
+    for(String s:formContent) {
+       System.out.println(s);
+    }
     
     //Create new testimonial object
     Testimonial testimonial = new Testimonial(formContent.get(0), formContent.get(1), formContent.get(2));
