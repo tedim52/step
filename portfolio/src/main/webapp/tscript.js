@@ -24,4 +24,11 @@ form.addEventListener('submit', async(e) => {
 });
 
 //function to display testimonial
+function showTestimonial(json) {
+    var section = document.createElement("section");
+    section.
+    var div = section.appendChild("div");
+    var p = div.appendChild("")    
+}
+
 //function to validate form
