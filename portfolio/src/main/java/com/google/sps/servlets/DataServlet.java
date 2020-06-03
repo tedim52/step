@@ -14,19 +14,55 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Testimonial;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader; 
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
+@WebServlet("/testimonials")
 public class DataServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
+    ///Retrieving form data to be put in array list with contents
+    BufferedReader reader = request.getReader();
+    List<String> formContent = new ArrayList<String>();
+    int i = 0;
+    while(reader.readLine()!=null) {
+        String line = reader.readLine();
+        if(i%2==1) {
+            formContent.add(line);
+        }
+        i++;
+    }
+    
+    //for(String s:formContent) {
+    //   System.out.println(s);
+    //}
+    
+    Testimonial testimonial = new Testimonial(formContent.get(0), formContent.get(1), formContent.get(2));
+    
+    response.setContentType("application/json");
+    response.getWriter().println(convertToJsonUsingGson(testimonial));
+
+
+    //TODO: Sentiment Analysis processing
+    
+  }
+
+  /* Converts a Testimonial instance into a JSON string using the Gson library. */
+  private String convertToJsonUsingGson(Testimonial testimonial) {
+    Gson gson = new Gson();
+    String json = gson.toJson(testimonial);
+    return json;
   }
 }

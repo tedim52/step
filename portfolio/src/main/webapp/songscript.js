@@ -2,7 +2,7 @@
   Going to attempt to use spotify web api to get songs form my playlists */
 
 
-//Retrieving access token
+
 
 /*
 var retriever = new XMLHttpRequest();
@@ -19,18 +19,19 @@ retriever.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 retriever.send("grant_type=client_credentials");
 
 */
-//Instantiating Spotify Wrapper JM-Perez
 
-//Retrieves the song icon and adds random song functionality on click
+
+// Retrieves the song icon and adds random song functionality on click
 const headphone = document.querySelector('.suggest');
 headphone.addEventListener('click', randomSong());
 
-
+/* Produces album cover and song name from given arrays and 
+    outputs them to be shown on random song generator page */
 function randomSong() {
   var songs = ["Too Young", "Stargazing", "Cash Out"];
   var covers = ["post.jpg", "astro.jpg", "funk.jpg"];
 
-  random = Math.floor(Math.random() * Math.floor(3));//pulled from MDN Math.random() page
+  random = Math.floor(Math.random() * Math.floor(3)); 
   var song = songs[random];
   var art = covers[random];
 
@@ -40,6 +41,7 @@ function randomSong() {
   card.addEventListener('mouseleave', hideText());
 }
 
+/* Changes card text displayed */
 function showText(song) {
   return function(){
     text = document.querySelector('.card-text');
@@ -49,6 +51,7 @@ function showText(song) {
   }
 }
 
+/* Changes card text to be hidden */
 function hideText() {
   return function(){
     text = document.querySelector('.card-text');
