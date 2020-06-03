@@ -18,7 +18,7 @@
 function getSubtractionGame() {
   fetch('/subtraction-game').then(response => response.json()).then((game) => {
     const totalEl = document.getElementById('total');
-    if (game.gameOver) {
+    if (game.gameOver)
       // The current game is over, show the total for the next game.
       totalEl.innerText = 'Total: 21';
     } else {

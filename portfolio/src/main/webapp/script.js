@@ -24,6 +24,7 @@ for(var i = 0; i < cards.length; i++){
   cards[i].addEventListener('mouseleave', hideText(cards[i]));
 }
 
+/* Changes card text displayed */
 function showText(elem) {
   return function(){
     text = elem.querySelector('.card-text');
@@ -33,6 +34,8 @@ function showText(elem) {
   }
 }
 
+
+/* Changes card text to be hidden */
 function hideText(elem) {
   return function(){
     text = elem.querySelector('.card-text');
