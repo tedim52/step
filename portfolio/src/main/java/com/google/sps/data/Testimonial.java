@@ -1,24 +1,27 @@
 package com.google.sps.data;
 
-
-
 /** Class containing testimonial information. */
 public final class Testimonial {
 
   private final String name;
   private final String relationship;
   private final String text;
-  private int upVote;
-  private int downVote;
+  private long upvote;
 
   public Testimonial(String n, String r, String t) {
       this.name = n;
       this.relationship = r;
       this.text = t;
-      upVote = 0;
-      downVote = 0;
+      upvote = 0;
   }
 
+  public Testimonial(String n, String r, String t, long count) {
+      this.name = n;
+      this.relationship = r;
+      this.text = t;
+      upvote = count;
+  }
+  
   public String getName() {
     return name;
   }
@@ -31,15 +34,11 @@ public final class Testimonial {
     return text;
   }
 
-  public int getUpVote () {
-    return upVote;
+  public long getUpvote () {
+    return upvote;
   }
-
-  public int incrementUpVote () {
-    return upVote++;
-  }
-
-  public int incremenDownVote () {
-    return downVote;
+  
+  public long incrementUpvote () {
+    return upvote++;
   }
 }
