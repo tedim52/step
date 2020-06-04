@@ -14,7 +14,10 @@
 
 package com.google.sps.servlets;
 
+//String to JSON import
 import com.google.gson.Gson;
+
+//Database imports
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -22,8 +25,10 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
+
 import com.google.sps.data.Testimonial;
 
+//Java library imports
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +46,8 @@ public class ListAllTestimonialsServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
       //Setup a query to retrieve testimonials
-      Query query = new Query("Task").addSort("Upvote", SortDirection.DESCENDING);
+      System.out.println("Data retrieved.");
+      Query query = new Query("Testimonial").addSort("Upvote", SortDirection.DESCENDING);
       
       //Retrieve entities from DB according to query
       DatastoreService database = DatastoreServiceFactory.getDatastoreService();
@@ -49,14 +55,16 @@ public class ListAllTestimonialsServlet extends HttpServlet {
 
       //Adds all entitys to a list of testimonials
       List<Testimonial> testimonials = new ArrayList<>();
-      for(Entity entity:results.asIterable()) {
-          String name = (String) entity.getProperty("Name");
-          String relationship = (String) entity.getProperty("Relationship");
-          String text = (String) entity.getProperty("Text");
-          int voteCount = (int) entity.getProperty("Upvote");
-        
-          Testimonial testimonial = new Testimonial(name, relationship, text, voteCount);
-          testimonials.add(testimonial);
+      for(Entity entity:results.asIterable()) {  
+        String name = (String) entity.getProperty("Name");
+        String relationship = (String) entity.getProperty("Relationship");
+        String text = (String) entity.getProperty("Text");
+        long voteCount = (long) entity.getProperty("Upvote");
+          
+        System.out.println(name + " " + relationship + " " + text + " " + voteCount);
+          
+        Testimonial testimonial = new Testimonial(name, relationship, text, voteCount);
+        testimonials.add(testimonial);
       }
 
       Gson gson = new Gson();
@@ -64,5 +72,6 @@ public class ListAllTestimonialsServlet extends HttpServlet {
       //Returns response as a list of json strings
       response.setContentType("application/json");
       response.getWriter().println(gson.toJson(testimonials));
+      System.out.println("Data sent through.");
   }  
 }

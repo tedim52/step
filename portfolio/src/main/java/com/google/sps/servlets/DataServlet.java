@@ -14,7 +14,10 @@
 
 package com.google.sps.servlets;
 
+//String to JSON import
 import com.google.gson.Gson;
+
+//Database imports
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -24,6 +27,13 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 
 import com.google.sps.data.Testimonial;
 
+//Sentiment analysis imports
+import com.google.sps.data.Pipeline;
+import edu.stanford.nlp.ie.util.*;
+import edu.stanford.nlp.pipeline.*;
+
+
+//Java library imports
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +50,6 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
     ///Retrieving form data to be put in array list with contents
     BufferedReader reader = request.getReader();
     List<String> formContent = new ArrayList<String>();
@@ -53,32 +62,33 @@ public class DataServlet extends HttpServlet {
         i++;
     }
     
-    //Print form - verify backend received it - remove before deployment
     for(String s:formContent) {
        System.out.println(s);
     }
     
-    //Create new testimonial object
-    Testimonial testimonial = new Testimonial(formContent.get(0), formContent.get(1), formContent.get(2));
-    
-    //Creating new testimonial entity to store in DB
-    Entity testimonialEntity = new Entity("Testimonial");
-    testimonialEntity.setProperty("Name", testimonial.getName());
-    testimonialEntity.setProperty("Relationship", testimonial.getRelationship());
-    testimonialEntity.setProperty("Text", testimonial.getText());
-    testimonialEntity.setProperty("Upvote", testimonial.getUpvote());
-    testimonialEntity.setProperty("Sentiment", "Positive");
+    //If the testimonial has a positive sentiment
+    if(isPositive(formContent.get(2))){
+        //Create new testimonial object
+        Testimonial testimonial = new Testimonial(formContent.get(0), formContent.get(1), formContent.get(2));
+        
+        //Creating new testimonial entity to store in DB
+        Entity testimonialEntity = new Entity("Testimonial");
+        testimonialEntity.setProperty("Name", testimonial.getName());
+        testimonialEntity.setProperty("Relationship", testimonial.getRelationship());
+        testimonialEntity.setProperty("Text", testimonial.getText());
+        testimonialEntity.setProperty("Upvote", testimonial.getUpvote());
+        testimonialEntity.setProperty("Sentiment", "Positive");
 
-    DatastoreService database = DatastoreServiceFactory.getDatastoreService();
-    database.put(testimonialEntity);
+        DatastoreService database = DatastoreServiceFactory.getDatastoreService();
+        database.put(testimonialEntity);
 
-    //Return json containing testimonial information
-    response.setContentType("application/json");
-    response.getWriter().println(convertToJsonUsingGson(testimonial));
-
-
-    //TODO: Sentiment analysis
-    
+        //Return json containing testimonial information
+        response.setContentType("application/json");
+        response.getWriter().println(convertToJsonUsingGson(testimonial));
+    } else {
+        response.setContentType("application/json");
+        response.getWriter().println("");
+    }
   }
 
   /* Converts a Testimonial instance into a JSON string using the Gson library. */
@@ -91,7 +101,23 @@ public class DataServlet extends HttpServlet {
   /* Analyzes the sentiment of a sentence. 
     Returns true if positive sentiment, false otherwise. */
   private boolean isPositive(String text) {
-      //TODO: Sentiment analysis
-      return true;
+    StanfordCoreNLP stanfordCoreNLP = Pipeline.getPipeline();
+    System.out.println("Pipeline retrieved");
+    CoreDocument coreDocument = new CoreDocument(text);
+    stanfordCoreNLP.annotate(coreDocument);
+
+    List<CoreSentence> sentences = coreDocument.sentences();
+    
+    System.out.println("Information received. Conducting sentiment analysis...");
+    for(CoreSentence sentence:sentences) {
+        String sentiment = sentence.sentiment();
+        System.out.println(sentiment + " "+ sentence);
+        if(sentiment.equals("Negative")||sentiment.equals("Neutral")) {
+          System.out.println("Negative testimonial.");
+          return false; 
+        }
+    }
+    System.out.println("Positive testimonial");
+    return true;
   }
 }

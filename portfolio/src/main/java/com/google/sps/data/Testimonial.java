@@ -6,7 +6,7 @@ public final class Testimonial {
   private final String name;
   private final String relationship;
   private final String text;
-  private int upvote;
+  private long upvote;
 
   public Testimonial(String n, String r, String t) {
       this.name = n;
@@ -15,7 +15,7 @@ public final class Testimonial {
       upvote = 0;
   }
 
-  public Testimonial(String n, String r, String t, int count) {
+  public Testimonial(String n, String r, String t, long count) {
       this.name = n;
       this.relationship = r;
       this.text = t;
@@ -34,11 +34,11 @@ public final class Testimonial {
     return text;
   }
 
-  public int getUpvote () {
+  public long getUpvote () {
     return upvote;
   }
   
-  public int incrementUpvote () {
+  public long incrementUpvote () {
     return upvote++;
   }
 }
