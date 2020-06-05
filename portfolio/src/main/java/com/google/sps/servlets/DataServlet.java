@@ -86,8 +86,9 @@ public class DataServlet extends HttpServlet {
         response.setContentType("application/json");
         response.getWriter().println(convertToJsonUsingGson(testimonial));
     } else {
+        Testimonial testimonial = new Testimonial(formContent.get(0), formContent.get(1), formContent.get(2),(long) 0, "Negative");
         response.setContentType("application/json");
-        response.getWriter().println("");
+        response.getWriter().println(convertToJsonUsingGson(testimonial));
     }
   }
 

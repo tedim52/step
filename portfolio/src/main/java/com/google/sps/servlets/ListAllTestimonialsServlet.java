@@ -60,10 +60,10 @@ public class ListAllTestimonialsServlet extends HttpServlet {
         String relationship = (String) entity.getProperty("Relationship");
         String text = (String) entity.getProperty("Text");
         long voteCount = (long) entity.getProperty("Upvote");
-          
+        String sentiment = (String) entity.getProperty("Sentiment");
         System.out.println(name + " " + relationship + " " + text + " " + voteCount);
           
-        Testimonial testimonial = new Testimonial(name, relationship, text, voteCount);
+        Testimonial testimonial = new Testimonial(name, relationship, text, voteCount, sentiment);
         testimonials.add(testimonial);
       }
 
