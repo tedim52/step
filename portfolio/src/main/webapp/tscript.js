@@ -32,7 +32,8 @@ form.addEventListener('submit', async(e) => {
         
         data = await response.json();
         console.log(data);
-        showTestimonial(data);
+        if(data.sentiment == "Positive") {
+            showTestimonial(data);      
         }  
     } else {
         alert("Please fill out form.");
@@ -45,7 +46,7 @@ function showTestimonial(json) {
     var div = document.createElement("div",{class:".testimonials"})
     section.appendChild(div);
     var text = document.createElement("p");
-    text.innerHTML = "name: " +json.name + " who: "+json.relationship + " what they have to say: "+json.text;
+    text.innerHTML = json.name + "   "+json.relationship + "   "+json.text;
     div.appendChild(text);
     document.querySelector(".container").appendChild(section);
 }
