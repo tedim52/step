@@ -50,34 +50,64 @@ function validateForm(json) {
 
 /* Displays most recently submitted testimonial onto screen. */
 function showTestimonial(json) {
-    var section = document.createElement("section");
+    var section = document.createElement("section", {class:"testimonials"});
     
-    var div = document.createElement("div",{class:"testimonials"});
+    var div = document.createElement("div");
     section.appendChild(div);
     
     var text = document.createElement("p", {class: "text"});
     text.innerHTML = json.name + "   "+json.relationship + "   "+json.text;
     div.appendChild(text);
     
-    //add up and downvote links
+    var countDiv = document.createElement("div", {class:"vote"});
+    section.appendChild(countDiv);
+    
+    //Add up and downvote links
     var upvoteLink = document.createElement("a",{class:"up"});
     upvoteLink.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    div.appendChild(upvoteLink);
+    countDiv.appendChild(upvoteLink);
     
     var upvoteCount = document.createElement("p",{class:"up-count"});
     upvoteCount.innerHTML = json.upvote;
-    div.appendChild(upvoteCount);
+    countDiv.appendChild(upvoteCount);
     
     var downvoteLink = document.createElement("a");
     downvoteLink.innerHTML = '<i class="fas fa-arrow-down"></i>';
-    div.appendChild(downvoteLink);
+    countDiv.appendChild(downvoteLink);
     
     var downvoteCount = document.createElement("p");
     downvoteCount.innerHTML = "0";
-    div.appendChild(downvoteCount);
+    countDiv.appendChild(downvoteCount);
 
     document.querySelector(".container").appendChild(section);
+    //<section class ="testimonial">
+    //  <div class="text">
+    //      <p>testimonial info</p>
+    //  <div>
+    //  <div class="vote">
+    //      <a class="up"><i class = "fas fa-arrow-up"></i></a>
+    //      <p class ="up-count">upvote count</p>
+    //      <a><i class = "fas fa-arrow-down"></i></a>
+    //      <p>downvote count</p>
+    //  </div>
+    //</section>
 }
 
+/* UPVOTE/DOWNVOTE Feature Deprecateds
 //TODO: Add onclick listener for upvote, downvote links
-
+document.querySelectorAll(".up").forEach((up) => {
+    up.addEventListener("click", (e)=> {
+        var text = up.parentElement.parentElement.getElementdByClassName(".text")[0].innerText;
+        data = {testimonial: text};
+        //post request to increment vote count sending the text in json to retrieve proper entity
+        var upVoteCount = await fetch("/vote", {
+            method:"POST",
+            headers: {
+                'Content-Type':'application/json';
+            },
+            body:JSON.stringify(data)
+        })
+        up.parentElement.getElementdByClassName("up-count").innerText = upVoteCount.count;
+    });
+});
+*/
