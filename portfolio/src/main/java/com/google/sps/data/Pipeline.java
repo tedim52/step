@@ -22,7 +22,7 @@ public class Pipeline {
             stanfordCoreNLP = new StanfordCoreNLP(properties);
             System.out.println("Creating new stanford core nlp");
         }
-        System.out.println("Returning existing stanford core nlp");
+        
         return stanfordCoreNLP;
     }
 

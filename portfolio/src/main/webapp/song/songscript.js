@@ -1,26 +1,6 @@
 /*Plays random song from array of random song
   Going to attempt to use spotify web api to get songs form my playlists */
 
-
-
-
-/*
-var retriever = new XMLHttpRequest();
-retriever.open('POST', 'https://accounts.spotify.com/api/token')
-var authToken;
-retriever.onreadystatechange = function() {
-  if (retriever.readyState == 4 && retriever.status == 200) {//Request was successful
-    authToken = retriever.response;
-    console.log(authToken);
-  }
-};
-retriever.setRequestHeader('Authorization', 'Basic MjBiMDRjNDE4Mjc5NGQ1NmEzMTgxZTI5ZDZlNThhZTM6ZWJmNzRjMmYyN2YzNGQxMWJhMmFhMzhiMDU0ZDg0MjU=');
-retriever.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-retriever.send("grant_type=client_credentials");
-
-*/
-
-
 // Retrieves the song icon and adds random song functionality on click
 const headphone = document.querySelector('.suggest');
 headphone.addEventListener('click', randomSong());
