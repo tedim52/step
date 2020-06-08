@@ -21,7 +21,6 @@ function randomSong() {
   card.addEventListener('mouseleave', hideText());
 }
 
-/* Changes card text displayed */
 function showText(song) {
   return function(){
     text = document.querySelector('.card-text');
@@ -31,7 +30,6 @@ function showText(song) {
   }
 }
 
-/* Changes card text to be hidden */
 function hideText() {
   return function(){
     text = document.querySelector('.card-text');

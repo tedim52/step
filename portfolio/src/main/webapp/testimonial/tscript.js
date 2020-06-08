@@ -93,7 +93,7 @@ function showTestimonial(json) {
     //</section>
 }
 
-/* UPVOTE/DOWNVOTE Feature Deprecateds
+/* UPVOTE/DOWNVOTE Feature Deprecated
 //TODO: Add onclick listener for upvote, downvote links
 document.querySelectorAll(".up").forEach((up) => {
     up.addEventListener("click", (e)=> {
