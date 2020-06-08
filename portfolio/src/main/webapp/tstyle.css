@@ -18,6 +18,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+    color: #45A29E;    
+}
+
 ul {
   list-style:none;
   color: #f2f2f2
@@ -78,6 +82,12 @@ h1, h2, p{
 }
 
 .testimonials {
-    display: flex;
-    padding: 25px 25;
+    display: grid;
+    grid-template-columns: repeat(5fr);
+    padding: 50px 50px;
 }
+
+.text {
+    grid-column: 1 /span 3;
+}
+

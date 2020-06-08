@@ -40,17 +40,6 @@ form.addEventListener('submit', async(e) => {
     }
 });
 
-/* Displays most recently submitted testimonial onto screen. */
-function showTestimonial(json) {
-    var section = document.createElement("section");
-    var div = document.createElement("div",{class:".testimonials"})
-    section.appendChild(div);
-    var text = document.createElement("p");
-    text.innerHTML = json.name + "   "+json.relationship + "   "+json.text;
-    div.appendChild(text);
-    document.querySelector(".container").appendChild(section);
-}
-
 function validateForm(json) {
     if(json.name=="" ||json.relationship=="" || json.text=="") {
         return false;
@@ -58,3 +47,37 @@ function validateForm(json) {
         return true;
     }
 }
+
+/* Displays most recently submitted testimonial onto screen. */
+function showTestimonial(json) {
+    var section = document.createElement("section");
+    
+    var div = document.createElement("div",{class:"testimonials"});
+    section.appendChild(div);
+    
+    var text = document.createElement("p", {class: "text"});
+    text.innerHTML = json.name + "   "+json.relationship + "   "+json.text;
+    div.appendChild(text);
+    
+    //add up and downvote links
+    var upvoteLink = document.createElement("a",{class:"up"});
+    upvoteLink.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    div.appendChild(upvoteLink);
+    
+    var upvoteCount = document.createElement("p",{class:"up-count"});
+    upvoteCount.innerHTML = json.upvote;
+    div.appendChild(upvoteCount);
+    
+    var downvoteLink = document.createElement("a");
+    downvoteLink.innerHTML = '<i class="fas fa-arrow-down"></i>';
+    div.appendChild(downvoteLink);
+    
+    var downvoteCount = document.createElement("p");
+    downvoteCount.innerHTML = "0";
+    div.appendChild(downvoteCount);
+
+    document.querySelector(".container").appendChild(section);
+}
+
+//TODO: Add onclick listener for upvote, downvote links
+
