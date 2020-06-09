@@ -7,16 +7,12 @@ headphone.addEventListener('click', randomSong());
 
 /* Produces album cover and song name from given arrays and 
     outputs them to be shown on random song generator page */
-function randomSong() {
-  var songs = ["Too Young", "Stargazing", "Cash Out"];
-  var covers = ["post.jpg", "astro.jpg", "funk.jpg"];
-
-  random = Math.floor(Math.random() * Math.floor(3)); 
-  var song = songs[random];
-  var art = covers[random];
-
+async function randomSong() {
+  console.log("Random Song initiated");
   card = document.querySelector(".cards");
-  card.setAttribute("src", "/images/"+ art);
+  
+  response = await fetch("/randomsong");
+  song = await response.text()
   card.addEventListener('mouseenter', showText(song));
   card.addEventListener('mouseleave', hideText());
 }
