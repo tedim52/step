@@ -68,3 +68,12 @@ h1, h2, p{
   color: #45A29E;
 }
 
+.personalpicks{
+  margin-top:50px;
+  padding-top: 100px;
+}
+
+.chart-div {
+    margin-top: 50px;
+    padding-top: 50px;
+}
