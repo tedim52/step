@@ -1,10 +1,3 @@
-var map;
-function initMap() {
-  map = new google.maps.Map(document.querySelector(".map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8
-  });
-}
 
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
@@ -42,10 +35,10 @@ function drawChart() {
                     'vAxis': {
                         'textStyle':{color: '#f2f2f2'}
                     }
-                };
+    };
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.querySelector('.chart-div'));
-        chart.draw(data, options);
-      }
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.querySelector('.chart-div'));
+    chart.draw(data, options);
+}
 
