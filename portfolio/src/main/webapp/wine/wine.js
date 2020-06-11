@@ -1,3 +1,11 @@
+var map;
+function initMap() {
+  map = new google.maps.Map(document.querySelector(".map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8
+  });
+}
+
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
 
@@ -41,10 +49,3 @@ function drawChart() {
         chart.draw(data, options);
       }
 
-var map;
-function initMap() {
-  map = new google.maps.Map(document.querySelector(".map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8
-  });
-}
