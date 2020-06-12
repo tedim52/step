@@ -9,12 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://kit.fontawesome.com/36215c94b4.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnHJbhlwZrObJX6zUnKLRWzIvrivlBBvA&callback=initMap&libraries=&v=weekly"
-      defer
-        ></script>
-    <script type="text/javascript" src="wine.js"></script>
     <title>tedi's wine</title>
   </head>
 
@@ -35,9 +29,42 @@
       </div>
       <div class="chart-div"></div>
       <div class="aroundtheworld">
-            <h1>aroundtheworld</h1>
-            <div class="map"></div>
+            <h1>around the world</h1>
+            <div id="map" style="width:500px;height:500px;overflow:visible;position:fixed"></div>
       </div>
     </div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnHJbhlwZrObJX6zUnKLRWzIvrivlBBvA&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 500px;
+        position: relative; */
+        overflow: hidden;
+      }
+
+    </style>
+    <script>
+      (function(exports) {
+        "use strict";
+
+        function initMap() {
+          exports.map = new google.maps.Map(document.getElementById("map"), {
+            center: {
+              lat: -34.397,
+              lng: 150.644
+            },
+            zoom: 8
+          });
+        }
+
+        exports.initMap = initMap;
+      })((this.window = this.window || {}));
+    </script>
+    <script type="text/javascript" src="wine.js"></script>
   </body>
 </html>
