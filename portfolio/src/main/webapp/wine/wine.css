@@ -80,7 +80,9 @@ h1, h2, p{
     padding-right:100px;
 }
 
-.map {
-  height: 100%;
-  width:100%;
+#map {
+    height: 500px;
+    width: 80%;
+    position: relative; 
+    overflow: hidden;
 }
