@@ -14,11 +14,14 @@
 
 package com.google.sps;
 
+//Guava library for intersection method
+import com.google.common.collect.Sets;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.ArrayList;
 /**
  * Class containerizing a method to find a suitable meeting time for a list of attendees.
  */
@@ -32,24 +35,29 @@ public final class FindMeetingQuery {
    * @return        A list of time ranges that attendees are free to attend the meeting.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    //If meeting duration is longer than 24 hours return no available time ranges
+    if(request.getDuration() > 1400) return new ArrayList<>();
+    
     Collection<TimeRange> availableTimeRanges = new ArrayList<>();
-    availableTimeRanges.add(TimeRange.WHOLE_DAY);//List of available time ranges starts as the whole day
+    
+    //List of available time ranges is initially the entire day
+    availableTimeRanges.add(TimeRange.WHOLE_DAY);
 
     //If there are no conflicting events, return the entire day
-    if(events.isEmpty()) return availableTimeRanges;//If there are no conflicting events, return the entire day.
+    if(events.isEmpty()) return availableTimeRanges;
     
     //If meeting duration is longer than 24 hours return no available time ranges
-    if(request.getDuration() > 1440) return new ArrayList<TimeRange>();
-    
     
     for(Event event:events) {
         //Check to make sure that mandatory events for the meeting are attending this event. If not, remove event.
-        Set<String> temp = new HashSet<>(event.getAttendees());
-        Set<String> intersection = temp.retainAll(request.getAttendees());
-        if(intersection.isEmpty()){
-            events.remove(event);
-            continue;    
+        /*Note: Attempted to use guava intersection method but type errors occurred*/
+        Collection<String> meetingAttendees = request.getAttendees();
+        int count = 0;
+        for(String attendee:meetingAttendees) {
+            if(event.getAttendees().contains(attendee))
+                count++;
         }
+        if(count == 0) continue;
 
         //Find all time ranges in the current available time ranges that conflict with this event.
         Collection<TimeRange> conflictingTimeRanges = new ArrayList<>();
@@ -58,29 +66,54 @@ public final class FindMeetingQuery {
                 conflictingTimeRanges.add(timeRange);
         }
 
-        //For conflicting time range, split it up to account for conflicting event
+        //For conflicting time range, construct new time ranges or remove time range depending on case
         for(TimeRange conflictingTime: conflictingTimeRanges) {
-            //If the event contains the time range
             
-            //If the conflicting time contains the event
+            //Case 1: event Time Range:          |-------------|
+            //        conflicting Time Range:         |--|
+            if(event.getWhen().contains(conflictingTime)){
+                //remove event from available time ranges
+                availableTimeRanges.remove(conflictingTime);
+                continue;
+            }
 
-            //If the conflicting time overlaps the event
+            //Case 2: event Time Range:               |--|
+            //        conflicting Time Range:    |-------------|
+            if(conflictingTime.contains(event.getWhen())){
+                //Split into two time ranges
+                TimeRange beforeEvent = TimeRange.fromStartEnd(conflictingTime.start(), event.getWhen().start(), false);
+                TimeRange afterEvent = TimeRange.fromStartEnd(event.getWhen().end(), conflictingTime.end(), false);
                 
-        
+                //Check that the time ranges are long enough for meeting
+                if(beforeEvent.duration() >= request.getDuration())
+                    availableTimeRanges.add(beforeEvent);
+                if(afterEvent.duration() >= request.getDuration())
+                    availableTimeRanges.add(afterEvent);
+                availableTimeRanges.remove(conflictingTime);
+                continue;
+            }
+
+            //Case 3: event Time Range:          |-------|     or     |-------|
+            //        conflicting Time Range:       |-------|      |-------|
+            //If conflicting Time's start time is in event's Time Range
+            TimeRange removeConflict = null;
+            if(event.getWhen().contains(conflictingTime.start())){
+                removeConflict = TimeRange.fromStartEnd(event.getWhen().end(), conflictingTime.end(), false);                    TimeRange.fromStartEnd(event.getWhen().end(), conflictingTime.end(), false);
+            }
+            //If event's Time Range start time is in conflicting Time's Time Range
+            if(conflictingTime.contains(event.getWhen().start())){
+                removeConflict = TimeRange.fromStartEnd(conflictingTime.start(), event.getWhen().end(), false);
+            }
+                
+            //Check that the time range is long enough for meeting
+            if(removeConflict.duration() >= request.getDuration())
+                availableTimeRanges.add(removeConflict);
+                
+            availableTimeRanges.remove(conflictingTime);
+            
+            
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
       }
+      return availableTimeRanges;
   }
 }
