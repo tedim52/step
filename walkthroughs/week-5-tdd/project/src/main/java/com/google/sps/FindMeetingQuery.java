@@ -20,6 +20,7 @@ import com.google.common.collect.Sets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.ArrayList;
 /**
@@ -39,15 +40,29 @@ public final class FindMeetingQuery {
     if(request.getDuration() > 1400) return new ArrayList<>();
     
     Collection<TimeRange> availableTimeRanges = new ArrayList<>();
-    
     //List of available time ranges is initially the entire day
     availableTimeRanges.add(TimeRange.WHOLE_DAY);
 
     //If there are no conflicting events, return the entire day
     if(events.isEmpty()) return availableTimeRanges;
     
-    //If meeting duration is longer than 24 hours return no available time ranges
+    //If there are no mandatory attendess, treat optional attendees as mandatory attendees
+    Collection<String> mandatoryAttendees = request.getAttendees();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
+    Collection<String> removeAttendees = new HashSet<>();//To avoid Concurrent Modification Exception
+    if(mandatoryAttendees.isEmpty()) {
+        for(String attendee:optionalAttendees) {
+            mandatoryAttendees.add(attendee);
+            removeAttendees.add(attendee);
+        }
     
+        for(String attendee:removeAttendees) {
+            optionalAttendees.remove(attendee);
+        }
+    
+    }
+
+
     for(Event event:events) {
         //Check to make sure that mandatory events for the meeting are attending this event. If not, remove event.
         /*Note: Attempted to use guava intersection method but type errors occurred*/
@@ -98,7 +113,7 @@ public final class FindMeetingQuery {
             //If conflicting Time's start time is in event's Time Range
             TimeRange removeConflict = null;
             if(event.getWhen().contains(conflictingTime.start())){
-                removeConflict = TimeRange.fromStartEnd(event.getWhen().end(), conflictingTime.end(), false);                    TimeRange.fromStartEnd(event.getWhen().end(), conflictingTime.end(), false);
+                removeConflict = TimeRange.fromStartEnd(event.getWhen().end(), conflictingTime.end(), false);
             }
             //If event's Time Range start time is in conflicting Time's Time Range
             if(conflictingTime.contains(event.getWhen().start())){
@@ -108,12 +123,49 @@ public final class FindMeetingQuery {
             //Check that the time range is long enough for meeting
             if(removeConflict.duration() >= request.getDuration())
                 availableTimeRanges.add(removeConflict);
-                
+
             availableTimeRanges.remove(conflictingTime);
-            
-            
         }
       }
+
+      //Check for optional attendee
+
+      //First get a list of 
+      HashMap<String, HashSet<Event>> optionalAttendeeEvents = new HashMap<>();
+      for(String attendee:optionalAttendees) {
+          for(Event event:events){
+              if(event.getAttendees().contains(attendee)){
+                  if(optionalAttendeeEvents.containsKey(attendee)) {
+                      optionalAttendeeEvents.get(attendee).add(event);
+                  } else {
+                      optionalAttendeeEvents.put(attendee, new HashSet<Event>());
+                      optionalAttendeeEvents.get(attendee).add(event);
+                  }
+              }
+          }
+      }
+
+      for(String attendee:optionalAttendees) {
+          Collection<Event> attendeeEvents = optionalAttendeeEvents.get(attendee);
+          Collection<TimeRange> conflictingTimeRanges = new ArrayList<>();
+          for(Event event:attendeeEvents) {
+              for(TimeRange time:availableTimeRanges) {
+                  if(event.getWhen().overlaps(time)) {
+                      conflictingTimeRanges.add(time);
+                  }
+              }
+          }
+          if(conflictingTimeRanges.size()==availableTimeRanges.size())
+            continue;
+          for(TimeRange time:availableTimeRanges) {
+              for(TimeRange conflictingTime:conflictingTimeRanges){
+                  if(time.equals(conflictingTime)) {
+                      availableTimeRanges.remove(time);
+                  }
+              }
+          }
+      }
+
       return availableTimeRanges;
   }
 }
