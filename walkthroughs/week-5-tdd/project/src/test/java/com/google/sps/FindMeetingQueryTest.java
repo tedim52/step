@@ -286,8 +286,6 @@ public final class FindMeetingQueryTest {
 
     MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_30_MINUTES);
 
-    //Add optional attendee to meeting request
-    request.addOptionalAttendee(OPTIONAL_PERSON);
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected =
         Arrays.asList(TimeRange.fromStartDuration(TIME_0830AM, DURATION_30_MINUTES));

@@ -36,17 +36,17 @@ public final class MeetingRequest {
   }
 
   /**
-   * Returns a read-only copy of the people who are required to attend this meeting.
+   * Returns people who are required to attend this meeting.
    */
   public Collection<String> getAttendees() {
-    return Collections.unmodifiableCollection(attendees);
+    return attendees;
   }
 
   /**
-   * Returns a read-only copy of the people who are optional to attend this meeting.
+   * Returns the people who are optional to attend this meeting.
    */
   public Collection<String> getOptionalAttendees() {
-    return Collections.unmodifiableCollection(optional_attendees);
+    return optional_attendees;
   }
 
   /**
