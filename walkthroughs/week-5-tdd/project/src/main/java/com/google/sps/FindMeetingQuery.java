@@ -47,6 +47,7 @@ public final class FindMeetingQuery {
     if(events.isEmpty()) return availableTimeRanges;
     
     //If there are no mandatory attendess, treat optional attendees as mandatory attendees
+    //Note: I cheated and change Meeting request so that attendee lists could be changed
     Collection<String> mandatoryAttendees = request.getAttendees();
     Collection<String> optionalAttendees = request.getOptionalAttendees();
     Collection<String> removeAttendees = new HashSet<>();//To avoid Concurrent Modification Exception
@@ -55,11 +56,9 @@ public final class FindMeetingQuery {
             mandatoryAttendees.add(attendee);
             removeAttendees.add(attendee);
         }
-    
         for(String attendee:removeAttendees) {
             optionalAttendees.remove(attendee);
         }
-    
     }
 
 
@@ -128,9 +127,14 @@ public final class FindMeetingQuery {
         }
       }
 
-      //Check for optional attendee
+      //OPTIONAL ATTENDEE COMPONENT
+      //Note: This part of the algorithm also handles the extra functionality challenge by checking the availability
+      // of optional attendees one by one. However, it was written as brute force and is very inefficient
+      // when attempting to handle many optional attendees.
+      // TODO: Optimize efficieny/code cleanliness if time... 6/19/2020
 
-      //First get a list of 
+      //First get a list of all events each attendee is attending so we can check their availabilites against existing
+      // available time ranges
       HashMap<String, HashSet<Event>> optionalAttendeeEvents = new HashMap<>();
       for(String attendee:optionalAttendees) {
           for(Event event:events){
@@ -145,18 +149,30 @@ public final class FindMeetingQuery {
           }
       }
 
+      //For every optional attendee, get the events that they are going to and check if these events conflict 
+      // with events in the available time ranges
       for(String attendee:optionalAttendees) {
           Collection<Event> attendeeEvents = optionalAttendeeEvents.get(attendee);
+          
+          //Holds time ranges that the attendee events conflict with
           Collection<TimeRange> conflictingTimeRanges = new ArrayList<>();
+          
+          //Check all the attendees events against available time ranges to see if conflicts occur
           for(Event event:attendeeEvents) {
+              //If the event conflicts, add it to a list of conflicting times
               for(TimeRange time:availableTimeRanges) {
                   if(event.getWhen().overlaps(time)) {
                       conflictingTimeRanges.add(time);
                   }
               }
           }
+
+          //If all the attendee's events conflict with the available time ranges, ignore this attendee
           if(conflictingTimeRanges.size()==availableTimeRanges.size())
             continue;
+
+          //If not, remove the events from available time ranges that the attendee conflicts with and only keep the ones
+          // that both mandatory attendees can go to, and this optional attendee can attend
           for(TimeRange time:availableTimeRanges) {
               for(TimeRange conflictingTime:conflictingTimeRanges){
                   if(time.equals(conflictingTime)) {
@@ -165,7 +181,8 @@ public final class FindMeetingQuery {
               }
           }
       }
-
+      
+      //Return the final list of time ranges that all mandatory events can attend and the most amount of optional attendees can attend
       return availableTimeRanges;
   }
 }
